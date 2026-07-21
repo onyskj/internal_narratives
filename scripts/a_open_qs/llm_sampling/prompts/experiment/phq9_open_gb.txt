@@ -1,0 +1,39 @@
+
+lvl1_q1
+In the past two weeks, how would you describe your overall emotional well-being, including your mood, feelings, thoughts about yourself, and any changes in your behaviour or daily functioning? Please provide examples of situations or experiences that best illustrate these aspects.
+^^^
+lvl2_q1
+Can you describe how you felt when doing activities and how your mood has been generally in the past two weeks? Can you provide typical examples that would best capture your feelings?
+^^^
+lvl2_q2
+In the past two weeks, how have your sleep patterns, energy levels, appetite, focus and cognitive abilities been? Are there any occasions that you could share where they have been affected in any way?
+^^^
+lvl2_q3
+Please provide typical examples of your thoughts and feelings about yourself and your sense of self-worth that you've had over the last two weeks.
+^^^
+lvl3_q1
+Could you share any activities or events from the past two weeks that made you feel bothered because of a lack of interest or pleasure in doing them?
+^^^
+lvl3_q2
+For the past two weeks, have you been bothered by your mood and how you felt generally? Were there any situations when you felt down, depressed, or hopeless?
+^^^
+lvl3_q3
+Can you provide examples of how your sleep has been in the past two weeks? Have you been bothered by challenges with falling asleep, staying asleep, or even sleeping too much?
+^^^
+lvl3_q4
+Have you been bothered by your energy levels over the past two weeks? Can you recall situations when it comes to feeling tired/lively or low/high on energy?
+^^^
+lvl3_q5
+In the past two weeks, have you been bothered about your appetite? Can you describe your typical attitude towards food - maybe you have noticed something unusual, like changes in how much you're eating or not eating?
+^^^
+lvl3_q6
+In the past two weeks, have you been bothered by feelings about yourself? In what situations did you feel proud or like a failure? Did you feel you met your own and your family's expectations, or let them down?
+^^^
+lvl3_q7
+In the past two weeks, have you been bothered by your ability to concentrate and focus? Please describe how it felt to do things that require you to concentrate for a while, like working, reading, or watching movies?
+^^^
+lvl3_q8
+Can you describe situations over the past two weeks when you were bothered by feeling slower than usual in terms of thinking, speaking, or just acting - or situations where you felt fidgety and restless?
+^^^
+rep_lvl2_q1
+Can you describe how you felt when doing activities and how your mood has been generally in the past two weeks? Can you provide typical examples that would best capture your feelings?

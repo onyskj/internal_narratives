@@ -1,0 +1,273 @@
+/*div.fadeIn span {*/
+/*    !*opacity: 0;*!*/
+/*    !*transform: translateY(-1vw);*!*/
+/*    !*animation: fadeIn 0.25s ease-out forwards;*!*/
+
+/*    !*-webkit-animation: fadeinout 2s linear forwards;*!*/
+/*    !*animation: fadein 2s ease forwards;*!*/
+/*    !*animation: fadeout 0.5s ease forwards;*!*/
+/*    !*animation-delay: 2s;*!*/
+/*    !*display: inline-block;*!*/
+/*    font-weight: bold;*/
+/*    !*font-size: 0.4vw;*!*/
+/*    font-size: 1.5vw;*/
+/*    margin-bottom: 1vw;*/
+/*    margin-top: 1vw;*/
+
+/*    !*display: flex;*!*/
+/*    !*align-items: center;*!*/
+/*    !*justify-content: left; !*display: table-cell;*!*!*/
+/*    !*padding:20px;*!*/
+/*    !*horiz-align: left;*!*/
+/*    color: #868686;*/
+/*    !*text-align: left;*!*/
+/*    display: block;*/
+/*    text-align: right;*/
+/*    margin-right: 3vw;*/
+/*}*/
+
+/*div.fadeIn {*/
+/*    !*border: black solid 2px;*!*/
+/*    !*background: #f8f8f8;*!*/
+/*    !*border: #f8f8f8 solid 20px;*!*/
+/*    !*border: transparent solid 20px;*!*/
+/*    background: linear-gradient(to right, white, #dfdfdf);*/
+/*    !*background: linear-gradient(to right, #fcfcfc, #dfdfdf);*!*/
+/*    border-radius: 20px;*/
+/*    position: absolute; !* This makes the element sticky *!*/
+/*    top: 42%; !* Stick it to the top of the viewport *!*/
+/*    left: 50%; !* Center horizontally *!*/
+/*    transform: translateX(-50%); !* Adjust horizontal position to center *!*/
+/*    width: 40%;*/
+/*    height: 10%;*/
+/*    padding: 0 5vw;*/
+/*    !*width:125%;*!*/
+/*    !*margin: auto;*!*/
+/*    overflow: hidden;*/
+/*    white-space: nowrap;*/
+/*    display: flex;*/
+/*    align-items: center; !* Centers vertically *!*/
+/*    justify-content: flex-end; !* Aligns text to the right *!*/
+/*    text-align: right; !* Ensures text aligns right inside *!*/
+/*    z-index: -1; !* Ensure it stays above other content *!*/
+/*    !*align-items: center;*!*/
+/*    !*display: flex;*!*/
+/*    !*align-items: center; !* Centers vertically *!*!*/
+/*    !*justify-content: center; !* Centers horizontally (optional) *!*!*/
+/*    !*   justify-content: flex-start;*!*/
+
+/*}*/
+
+/*#qs_timeleft_type {*/
+/*    text-decoration: underline;*/
+/*    font-weight: bold;*/
+/*    color: red;*/
+/*    !*margin-bottom: -2vh;*!*/
+/*    margin-top: -3vh;*/
+/*    font-size: 1.05vw;*/
+/*    !*position: fixed; !* This makes the element sticky *!*!*/
+/*    !*top: 100%; !* Stick it to the top of the viewport *!*!*/
+/*    !*left: 50%; !* Center horizontally *!*!*/
+/*    !*transform: translateX(-50%); !* Adjust horizontal position to center *!*!*/
+/*}*/
+
+
+/*div.type_timer {*/
+/*    opacity: 0;*/
+/*    animation: fadein 0.75s linear forwards;*/
+/*    animation-delay: 3s*/
+/*}*/
+
+
+.type_text input[type="submit"] {
+    /*position: fixed;*/
+    position: relative;
+    color: black;
+    margin: auto;
+    top: -25px;
+    margin-left: 70%;
+    /*left:34%;*/
+    /*margin-top: -5px;*/
+    /*margin-right:100px;*/
+    /*left: 75.5%;*/
+    /*top: 55%;*/
+    /*transform: translate(-75.5%, -55%);*/
+    /*font-size: 1.25vw;*/
+    font-size: 1.25em;
+    font-weight: bold;
+    border-radius: 50%;
+    /*border: 2px solid black;*/
+    z-index: 99999; /* higher than overlay */
+    background: url('../imgs/submit.svg') no-repeat right center;
+    background-color: #c8c8c8;
+    opacity: 1;
+    border: none;
+    /*background-size: 9vh 6vh;*/
+    /*width: 10vh;*/
+    /*height: 10vh;*/
+    background-size: 4.5em 3.5em;
+    width: 5em;
+    height: 5em;
+}
+
+.type_text input[type="submit"]:disabled {
+    opacity: 0.1;
+    background-color: rgba(0, 0, 0, 0.85);
+    cursor: not-allowed;
+}
+
+
+.type_text #input-0 {
+    /*position: fixed; !* This makes the element sticky *!*/
+    position: relative; /* This makes the element sticky */
+    /*top:%;*/
+    height: 90px;
+    /*width: 35%;*/
+    width: 45%;
+    /*width: 35vw;*/
+    /*width: 500px;*/
+    /*font-size: 2.5vw;*/
+    font-size: 2.5em;
+    font-weight: bold;
+    margin: auto;
+    color: #606060;
+    border: 7px solid #dc2f2f;
+    background: #c8c8c8;
+    border-radius: 20px;
+    padding: 10px 2vw;
+    /*top: 55%; !* Stick it to the top of the viewport *!*/
+    /*left: 46%; !* Center horizontally *!*/
+    /*transform: translate(-46%, -55%);*/
+    text-align: center;
+    z-index: 999998; /* higher than overlay */
+    margin-top: 225px;
+
+}
+
+.type_text #input-0::placeholder {
+    /*font-size: 1.15vw;*/
+    font-size: 0.5em;
+    color: #929292;
+    opacity: 0.9;
+    text-align: center;
+}
+
+.type_text #input-0:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+/*#write_instr {*/
+/*    border-bottom: 4px gray solid;*/
+/*    border-radius: 10px;*/
+/*    padding: 10px;*/
+/*    padding-bottom: 5px;*/
+/*    !*box-shadow: 10px 10px;*!*/
+/*    position: fixed; !* This makes the element sticky *!*/
+/*    top: 65%; !* Stick it to the top of the viewport *!*/
+/*    left: 50%; !* Center horizontally *!*/
+/*    transform: translateX(-50%); !* Adjust horizontal position to center *!*/
+/*    height: 2vw;*/
+/*    !*width: 20vw;*!*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*#write_instr_top {*/
+/*    text-decoration: underline;*/
+/*    font-weight: bold;*/
+/*    margin-bottom: 2vh;*/
+/*    !*margin-top: -10vh;*!*/
+/*    font-size: 1.05vw;*/
+/*    position: fixed; !* This makes the element sticky *!*/
+/*    !*top: 30%; !* Stick it to the top of the viewport *!*!*/
+/*    left: 50%; !* Center horizontally *!*/
+/*    transform: translateX(-50%); !* Adjust horizontal position to center *!*/
+/*}*/
+
+
+/*#type_task_submit_instr {*/
+/*    font-size: .85vw;*/
+/*    margin-top: -1vw;*/
+/*    color: green;*/
+/*    font-weight: bold;*/
+/*}*/
+
+
+#type_preamble {
+    width: 70%;
+    padding-top: 4vh;
+    position: fixed; /* This makes the element sticky */
+    top: 0; /* Stick it to the top of the viewport */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust horizontal position to center */
+    background-color: white; /* Background color for better visibility */
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+
+#qs_avoid_type {
+    width: 75%;
+    margin: auto;
+
+    /*margin-top: 10vh;*/
+    /*border: 2px solid black;*/
+    border-bottom: 1.25px solid black;
+    /*background: rgb(211, 211, 211, 0.15);*/
+    padding: 1vw;
+    margin-bottom: 1vh;
+    /*border-radius: 1vw;*/
+    /*  display: inline;*/
+    z-index: 1000;
+}
+
+#qs_avoid_type label {
+    font-size: 1vw;
+}
+
+
+#type_qs {
+    position: fixed; /* This makes the element sticky */
+    margin: auto;
+    /*box-sizing: border-box;*/
+    /*top: 22%; !* Stick it to the top of the viewport *!*/
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust horizontal position to center */
+    width: 65%;
+    /*left:25em*/
+    /*margin-left:auto;*/
+    top: 0;
+    margin-top: 5vh;
+    /*margin-bottom: 10vh;*/
+    border: 2px solid blue;
+    background: rgb(211, 211, 211, 0.5);
+    border-radius: 1vw;
+    /*margin-top: 5.5vh;*/
+    /*font-size: 20.5vw;*/
+    /*font-size: 1.2vw;*/
+    font-size: 1em;
+    padding: 1vw;
+    z-index: 99999;
+    background-color: rgba(255, 255, 255, 0.95);
+    font-weight: bold;
+}
+
+#jspsych-survey-text {
+    /*position: fixed;*/
+    margin: auto;
+    /*left: 50%; !* Center horizontally *!/*/
+    /*transform: translateX(-50%); !* Adjust horizontal position to center *!*/
+}
+
+#act_preamble_hl {
+    color: red
+}
+
+#type_cont {
+    /*margin-top: -200px;*/
+    /*position: fixed;*/
+    /*margin:auto;*/
+    /*left:0;*/
+    /*margin-left:10%;*/
+}
+
+

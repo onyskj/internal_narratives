@@ -1,0 +1,27 @@
+For the item below, please select a response, which best describes how often you felt or behaved this way during the past several days.
+^^
+- A little of the time
+- Some of the time
+- Good part of the time
+- Most of the time.
+^^
+1. I feel down-hearted and blue.
+2. Morning is when I feel the best.
+3. I have crying spells or feel like it.
+4. I have trouble sleeping at night.
+5. I eat as much as I used to.
+6. I still enjoy sex.
+7. I notice that I am losing weight.
+8. I have trouble with constipation.
+9. My heart beats faster than usual.
+10. I get tired for no reason.
+11. My mind is as clear as it used to be.
+12. I find it easy to do the things I used to.
+13. I am restless and can’t keep still.
+14. I feel hopeful about the future.
+15. I am more irritable than usual.
+16. I find it easy to make decisions.
+17. I feel that I am useful and needed.
+18. My life is pretty full.
+19. I feel that others would be better off if I were dead.
+20. I still enjoy the things I used to do.

@@ -1,0 +1,101 @@
+#vas_label {
+    /*font-size:10px;*/
+    font-weight: bold;
+    text-decoration: underline;
+    margin-top: 2vh;
+    /*width: 10px;*/
+    /*display: flex;*/
+    /*align-items: flex-start;*/
+    /*justify-content: space-evenly; !* or use space-between *!*/
+}
+
+.vline_ob_mine {
+    background: linear-gradient(to right, #fff5f5, #f8c8c8, #f08080, #d32f2f)
+}
+
+#jspsych-html-vas-response-preamble {
+    width: 90%;
+    padding-top: 4vh;
+    position: fixed; /* This makes the element sticky */
+    top: 0; /* Stick it to the top of the viewport */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust horizontal position to center */
+    background-color: white; /* Background color for better visibility */
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+#jspsych-html-vas-response-vas {
+    width: 100%;
+}
+
+#jspsych-html-vas-response-stimulus {
+    height: 3.5em;
+    width: 55%;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 22.5%;
+    border: 5px solid #319DD3;
+    background: rgb(211, 211, 211, 0.5);
+    border-radius: 1vw;
+    /*font-size: 1.2vw;*/
+    font-size: 1.2em;
+    padding: 1vw;
+    font-weight: bold;
+    display: flex;
+    align-items: center; /* Vertically center */
+    justify-content: center; /* Horizontally center */
+    text-align: center;
+}
+
+#jspsych-html-vas-response-next {
+    position: fixed;
+    margin: auto;
+    top: 90%;
+    left: 49%;
+    transform: translate(-49%, -90%);
+    font-size: 1.25em;
+    /*font-size: 1.1vw;*/
+    font-weight: bold;
+    border-radius: 50%;
+    /*border: 2px solid black;*/
+    background: url('../imgs/submit.svg') no-repeat right center;
+    background-color: #c8c8c8;
+    opacity: 1;
+    /*background-size: 9vh 6vh;*/
+    border: none;
+    /*width: 10vh;*/
+    /*height: 10vh;*/
+    background-size: 4.5em 3.5em;
+    width: 5em;
+    height: 5em;
+}
+
+#jspsych-html-vas-response-next:disabled {
+    opacity: 0.1;
+    background-color: rgba(0, 0, 0, 0.85);
+    cursor: not-allowed;
+}
+
+#qs_preamble {
+    width: 90%;
+    padding-top: 4vh;
+    position: fixed; /* This makes the element sticky */
+    top: 0; /* Stick it to the top of the viewport */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust horizontal position to center */
+    background-color: white; /* Background color for better visibility */
+}
+
+#qs_preamble_disclosure {
+    margin-top: -20px;
+    /*font-size: 1vw;*/
+    /*font-size: 1vw;*/
+    font-weight: normal;
+}
+
+#qs_preamble_q_p {
+    color: rgb(65, 105, 225);
+    font-weight: bold;
+}
+

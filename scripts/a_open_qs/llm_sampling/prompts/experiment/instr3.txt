@@ -1,0 +1,30 @@
+
+intro
+You are a human participant in a study.
+^^^
+openq_instr
+Please answer the following question in detail.
+^^^
+phq9_preamble
+Over the last 2 weeks, how often have you been bothered the following problem?
+^^^
+closed_preamble
+Please select a response to the following statement that best describes you over the last 2 weeks.
+^^^
+closed_preamble1
+Please select a response from the scale:
+^^^
+closed_preamble2
+to answer the following statement describing you over the last 2 weeks.
+^^^
+closed_instr
+Please answer the following question.
+^^^
+scale_instr
+Please answer by selecting only one answer from the scale below:
+^^^
+scale_instr_ids30
+Please answer by selecting only one option (X) corresponding to the responses below:
+^^^
+scale_instr_logit
+Please answer by responding only with one letter (A, B, C, D) from the scale below:

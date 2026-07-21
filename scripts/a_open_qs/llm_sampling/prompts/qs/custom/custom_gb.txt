@@ -1,0 +1,10 @@
+- Very Good
+- Good
+- Bad
+- Very Bad
+^^
+lvl1_q1. My overall emotional well-being, including my mood feelings, thoughts about myself, and any changes in my behaviour or daily functioning have been:
+lvl2_q1. My feelings when doing activities and my overall mood have been:
+lvl2_q2. My sleep patterns, energy levels, appetite, focus and cognitive abilities have been:
+lvl2_q3. My thoughts and feelings about myself and my sense of self-worth have been:
+rep_lvl2_q1. My feelings when doing activities and my overall mood have been:
