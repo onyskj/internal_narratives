@@ -4,14 +4,14 @@ Code repository for the "Internal narratives parameterise affective states"
 paper (https://arxiv.org/abs/2502.09487).
 
 Data and analysis outputs are located on OSF, due to the size and number of intermediary files.
-- [OSF link]
+- https://osf.io/bs2df
 
 Note that open-ended free text responses, as well as corresponding LLM hidden state files are not included due to
 anonymity concern. We are happy to set up Data Sharing Agreement to share these instead. Please contact either:
 * Jakub Onysk (jakub.onysk.22@ucl.ac.uk)
 * Quentin Huys (q.huys@ucl.ac.uk)
 
-The main structure of the combined code and data repository is as follows:
+You will have to combine the data repo with this one to match the main structure repository as follows:
 
 ```
 .
