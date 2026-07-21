@@ -3,8 +3,7 @@
 Code repository for the "Internal narratives parameterise affective states"
 paper (https://arxiv.org/abs/2502.09487).
 
-Data and analysis outputs are located on OSF, due to the size and number of intermediary files.
-- https://osf.io/bs2df
+Data and analysis outputs are located on OSF (https://osf.io/bs2df), due to the size and number of intermediary files.
 
 Note that open-ended free text responses, as well as corresponding LLM hidden state files are not included due to
 anonymity concern. We are happy to set up Data Sharing Agreement to share these instead. Please contact either:
