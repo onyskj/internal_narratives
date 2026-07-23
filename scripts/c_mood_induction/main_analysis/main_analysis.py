@@ -42,11 +42,10 @@ Path(paths.output_path).mkdir(parents=True, exist_ok=True)
 
 # bools
 bools = Bools()
-bools.savePlot = True
+# bools.savePlot = True
 bools.savePlot = False
 # bools.writeTex = True
 bools.writeTex = False
-
 
 # %% Load data
 model_name = 'gemma2-9b-it'
@@ -55,6 +54,7 @@ cond_names = ['High mood', 'Low mood']
 cond_cols = ['#E1BE6A', '#40B0A6']
 id_cols = ['sub', 'condition', 'group', 'autobio']
 hue_order = ['ML', 'MH']
+x_label_names = ['Low\nmood', 'High\nmood']
 sbin3_order = ['q33', 'm', 'q66']
 join_cols = id_cols + ['s_bin', 's_bin3']
 
@@ -102,7 +102,8 @@ bools.do_annots = True
 plt.close('all')
 pc.annot_fs = 5.5
 pc.annot_p_fs = 7
-
+pc.xyt_ls(5, 5)
+pc.ax_ts(7)
 pc.p_lab_spec[0] = -0.3
 pc.p_lab_spec[1] = 1.05
 
@@ -118,9 +119,11 @@ y_dist_cb = 0.08
 dist_from_mid = 3.2
 clab_rot = 0
 cbar_labelpad = 23
+x_tick_loc = 0.2
 
 pc.r, pc.c, pc.mlt = 1, 6, 1
-pc.figsize = (pc.fw - .001, pc.fw / 3.75)
+# pc.figsize = (pc.fw - .001, pc.fw / 3.75)
+pc.figsize = (pc.fw - .001, pc.fw / 3.25)
 fig, axes = plt.subplots(pc.r, pc.c, figsize=pc.figsize, width_ratios=[1.5, 1, 1, 1, 1, 1], layout='constrained')
 pc.onerow = False
 pc.axes = axes
@@ -178,6 +181,7 @@ if bools.do_annots:
 # --------- Plot sSAE measures (Q2)
 pc.p_lab_spec[1] = 1.00
 pc.j = 1
+pc.xyt_ls(7, 5)
 b = sns.boxplot(data=sae_phq9, x='group', y='sae_phq9_q2', hue='condition', orient='v', palette=cond_cols, legend=False,
                 hue_order=hue_order, gap=pc.box_gap, ax=pc.ax, width=pc.box_width, linewidth=pc.box_lw, fill=False,
                 fliersize=pc.box_fliersize, color='k')
@@ -210,9 +214,14 @@ annotator.configure(fontsize=pc.annot_p_fs)
 annotator.set_custom_annotations(p_val_text)
 annotator.annotate()
 
-pc.ax.set_xlabel('Intervention diary')
+# pc.ax.set_xlabel('Intervention diary')
+pc.ax.set_xlabel('')
+# pc.ax.set_title('Intervention diary')
+pc.ax.set_title('Diary continuation')
 pc.ax.set_ylabel('\nsSAE Q2 score', labelpad=0.1)
-pc.ax.set_xticks([])
+# pc.ax.set_xticks([])
+pc.ax.set_xticks([-x_tick_loc, x_tick_loc])
+pc.ax.set_xticklabels(x_label_names)
 
 # ----------- Plot measures - mood, recall, phq9 q2 change
 measures = ['mood_diff', 'recall_diffSent', 'phq9_q2']
@@ -222,6 +231,7 @@ measure_label_fnames = ['mood', 'recall', 'phqQtwo']
 for pc.j, (measure_name, measure_label, measure_fname) in enumerate(
         zip(measures, measure_labels, measure_label_fnames)):
     pc.j += 1 + 1
+    pc.xyt_ls(7, 5)
 
     # get measure df
     all_data_measure = all_data[all_data['measure'] == measure_name]
@@ -266,8 +276,12 @@ for pc.j, (measure_name, measure_label, measure_fname) in enumerate(
     if pc.j == 4:
         pc.ax.set_ylabel(' ', labelpad=0.1)
 
-    pc.ax.set_xlabel(f'{measure_label} change')
-    pc.ax.set_xticks([])
+    # pc.ax.set_xlabel(f'{measure_label} change')
+    pc.ax.set_title(f'{measure_label} change')
+    pc.ax.set_xlabel('')
+    # pc.ax.set_xticks([])
+    pc.ax.set_xticks([-x_tick_loc, x_tick_loc])
+    pc.ax.set_xticklabels(x_label_names)
     pc.ax.text(pc.p_lab_spec[0] + 0.05, pc.p_lab_spec[1], pc.p_labs[pc.i, pc.j], transform=pc.ax.transAxes,
                fontweight='bold',
                va='top', ha='right',
@@ -277,6 +291,7 @@ for pc.j, (measure_name, measure_label, measure_fname) in enumerate(
 
 # Plot sSAE Q2/Q4 change on positive re-aval
 pc.j = 5
+pc.xyt_ls(7, 5)
 sns.boxplot(data=sae_pred_df_avg, x='group', y='sae_diff_fuB_avg', hue='condition', ax=pc.ax, palette=cond_cols,
             legend=False,
             hue_order=hue_order, gap=pc.box_gap, width=pc.box_width, linewidth=pc.box_lw, fill=False,
@@ -316,8 +331,12 @@ annotator.set_custom_annotations(p_val_text)
 annotator.annotate()
 
 pc.ax.set_ylabel('')
-pc.ax.set_xlabel('sSAE Q2/4 change    ')
-pc.ax.set_xticks([])
+# pc.ax.set_xlabel('sSAE Q2/4 change    ')
+pc.ax.set_xlabel('')
+pc.ax.set_title('sSAE Q2/4 change    ')
+# pc.ax.set_xticks([])
+pc.ax.set_xticks([-x_tick_loc, x_tick_loc])
+pc.ax.set_xticklabels(x_label_names)
 
 if bools.savePlot:
     plt.savefig(f"{paths.plots_path}{fig_no}_p1_diff_measures_combined.pdf", dpi=300)

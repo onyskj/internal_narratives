@@ -280,7 +280,8 @@ for pc.j, (measure_name, measure_label, measure_fname) in enumerate(
     # add zero line
     pc.ax.axhline(y=0, color='k', linewidth=1, linestyle='--')
 
-    pc.ax.set_xlabel('Intervention Adherence')
+    # pc.ax.set_xlabel('Intervention Adherence')
+    pc.ax.set_xlabel('Narrative state induction')
     pc.ax.set_ylabel(f'{measure_label} change')
     pc.ax.text(pc.p_lab_spec[0] + 0.05, pc.p_lab_spec[1], pc.p_labs[pc.i, pc.j], transform=pc.ax.transAxes,
                fontweight='bold',
