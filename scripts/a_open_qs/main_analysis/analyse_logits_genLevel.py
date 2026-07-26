@@ -54,9 +54,10 @@ instr_name_str = 'instr3'
 task_v = ['v4', 'v4_d', 'v4_dd', 'v4_ddd']
 model_names = ['MistralOo', 'gemma2-2b-it', 'llama32-3b-it', 'gemma2-9b-it', 'llama31-8b-it']
 # model_names = ['MistralOo', 'gemma2-2b-it']
-# model_names = ['gemma2-9b-it']
+model_names = ['gemma2-9b-it']
 
 gen_qs_list = ['sds', 'gad7', 'phq9']
+# gen_qs_list = ['phq9','sds', 'gad7']
 # gen_qs_list = ['sds', 'gad7']
 # gen_qs_list = ['sds']
 # gen_qs_list = ['phq9']
@@ -179,15 +180,14 @@ for model_name in model_names:
         cross_corr, cross_corr_subset, cross_pvals, cross_pvals_subset = get_corrs_gen_wphq9(paths, gen_qs,
                                                                                              closed_data_long, q_names,
                                                                                              context_names, qs_config,
-                                                                                             task_v, p_thr=p_thr)
+                                                                                             task_v)
 
         no_sui_idx = [c for c in cross_corr_subset.index if c != 'phq9_q9']
 
         store_ppt_corrs[gen_qs] = cross_corr_subset.loc[no_sui_idx]
 
         # llm vs ppt gen correlations
-        df_corr, df_corr_wide, N_range = get_corrs_pvals_genq_logits(responses_avg_merged, context_names, q_names,
-                                                                     p_thr=p_thr)
+        df_corr, df_corr_wide, N_range = get_corrs_pvals_genq_logits(responses_avg_merged, context_names, q_names)
 
         store_llm_corrs[model_name][gen_qs] = df_corr_wide['r']
         corr_diff = (np.tril(cross_corr_subset.iloc[:8, :]) - np.tril(df_corr_wide['r'].values)).flatten()
