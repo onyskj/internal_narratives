@@ -57,7 +57,7 @@ model_names = ['MistralOo', 'gemma2-2b-it', 'llama32-3b-it', 'gemma2-9b-it', 'll
 model_names = ['gemma2-9b-it']
 
 gen_qs_list = ['sds', 'gad7', 'phq9']
-# gen_qs_list = ['phq9','sds', 'gad7']
+gen_qs_list = ['phq9','sds', 'gad7']
 # gen_qs_list = ['sds', 'gad7']
 # gen_qs_list = ['sds']
 # gen_qs_list = ['phq9']
@@ -299,7 +299,7 @@ for model_name in model_names:
         pc.ax.set_yticks(range(len(metric_labels)))
         pc.ax.set_yticklabels(metric_labels, rotation=25)
         pc.ax.set_xlim([0, 1.05])
-        if pc.i == 1:
+        if pc.i == 2:
             pc.ax.set_title('\nSimilarity    \nmetrics    ')
         else:
             pc.ax.set_title('Similarity    \nmetrics    ')
