@@ -54,9 +54,9 @@ instr_name_str = 'instr3'
 task_v = ['v4', 'v4_d', 'v4_dd', 'v4_ddd']
 model_names = ['MistralOo', 'gemma2-2b-it', 'llama32-3b-it', 'gemma2-9b-it', 'llama31-8b-it']
 # model_names = ['MistralOo', 'gemma2-2b-it']
-model_names = ['gemma2-9b-it']
+# model_names = ['gemma2-9b-it']
 
-gen_qs_list = ['sds', 'gad7', 'phq9']
+# gen_qs_list = ['sds', 'gad7', 'phq9']
 gen_qs_list = ['phq9','sds', 'gad7']
 # gen_qs_list = ['sds', 'gad7']
 # gen_qs_list = ['sds']
