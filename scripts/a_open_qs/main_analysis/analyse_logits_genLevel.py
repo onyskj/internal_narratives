@@ -155,10 +155,12 @@ for model_name in model_names:
     pc.i, pc.j = 0, 0
     fig, axes = plt.subplots(pc.r, pc.c, width_ratios=[1, 1, wr1, wr2], figsize=pc.figsize, layout='constrained')
     # pc.axes = axes
+    panel_labels = pc._p_labs_org[:pc.r*pc.c].reshape(pc.c,pc.r).T
     if pc.r == 1:
         pc.axes = np.array([axes])
     else:
         pc.axes = axes
+
     for pc.i, gen_qs in enumerate(gen_qs_list):
         print(gen_qs)
         pc.p_lab_spec[0] = -0.1
@@ -228,7 +230,7 @@ for model_name in model_names:
         pc.ax.set_yticklabels([f'{q + 1}' for q in range(len((cross_corr_subset.loc[no_sui_idx].index)))])
         pc.ax.yaxis.labelpad = pc.ax_l_pad
 
-        pc.ax.text(pc.p_lab_spec[0] + 0.05, pc.p_lab_spec[1], pc.p_labs[pc.i, pc.j], transform=pc.ax.transAxes,
+        pc.ax.text(pc.p_lab_spec[0] + 0.05, pc.p_lab_spec[1], panel_labels[pc.i, pc.j], transform=pc.ax.transAxes,
                    fontweight='bold', va='top', ha='right', fontsize=pc.p_lab_spec[2])
 
         # Plot item-level correlations between participant score on generalised questionnaire and score on that given open question
@@ -254,7 +256,7 @@ for model_name in model_names:
         pc.ax.set_yticklabels([])
         pc.ax.yaxis.labelpad = pc.ax_l_pad
 
-        pc.ax.text(pc.p_lab_spec[0] + 0.05, pc.p_lab_spec[1], pc.p_labs[pc.i, pc.j], transform=pc.ax.transAxes,
+        pc.ax.text(pc.p_lab_spec[0] + 0.05, pc.p_lab_spec[1], panel_labels[pc.i, pc.j], transform=pc.ax.transAxes,
                    fontweight='bold', va='top', ha='right', fontsize=pc.p_lab_spec[2])
 
         text_obj = pc.ax.text(0.33, -0.45, q_labs[gen_qs] + '\n', transform=pc.ax.transAxes, fontweight='bold',
@@ -274,7 +276,7 @@ for model_name in model_names:
         pc.ax.set_ylim([qs_config.qs_min_total[gen_qs] - ax_space, qs_config.qs_max_total[gen_qs] + ax_space])
         pc.ax.set_xlabel('Ground-truth')
         pc.ax.set_ylabel('Estimated')
-        pc.ax.text(pc.p_lab_spec[0], pc.p_lab_spec[1], pc.p_labs[pc.i, pc.j], transform=pc.ax.transAxes,
+        pc.ax.text(pc.p_lab_spec[0], pc.p_lab_spec[1], panel_labels[pc.i, pc.j], transform=pc.ax.transAxes,
                    fontweight='bold', va='top', ha='right', fontsize=pc.p_lab_spec[2])
 
         # Plot similarity metrics
@@ -304,7 +306,7 @@ for model_name in model_names:
         else:
             pc.ax.set_title('Similarity    \nmetrics    ')
         # pc.ax.set_xlabel(gen_qs.upper())
-        pc.ax.text(pc.p_lab_spec[0], pc.p_lab_spec[1], pc.p_labs[pc.i, pc.j], transform=pc.ax.transAxes,
+        pc.ax.text(pc.p_lab_spec[0], pc.p_lab_spec[1], panel_labels[pc.i, pc.j], transform=pc.ax.transAxes,
                    fontweight='bold', va='top', ha='right', fontsize=pc.p_lab_spec[2])
 
     if model_name != 'gemma2-9b-it':
