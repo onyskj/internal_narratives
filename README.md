@@ -1,6 +1,6 @@
 # Repository structure
 
-Code repository for the "Internal narratives parameterise affective states"
+Code repository for the "Metareasoning constraints couple narratives, affect and cognition"
 paper (https://arxiv.org/abs/2502.09487).
 
 Data and analysis outputs are located on OSF (https://osf.io/bs2df), due to the size and number of intermediary files.
