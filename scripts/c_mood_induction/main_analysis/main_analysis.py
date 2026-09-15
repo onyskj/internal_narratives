@@ -10,7 +10,7 @@ import matplotlib.colors as mcolors
 import matplotlib.colors as clr
 
 # matplotlib.use('Qt5Agg')
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 plt.ion()
@@ -42,8 +42,8 @@ Path(paths.output_path).mkdir(parents=True, exist_ok=True)
 
 # bools
 bools = Bools()
-# bools.savePlot = True
-bools.savePlot = False
+bools.savePlot = True
+# bools.savePlot = False
 # bools.writeTex = True
 bools.writeTex = False
 

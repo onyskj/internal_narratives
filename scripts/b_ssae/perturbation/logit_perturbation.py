@@ -71,7 +71,7 @@ if ds_type == 'val':
     steer_mlt_set = [-1.5, -1, -0.5, -0.25] + [0.25, 0.5, 1, 1.5]
 if ds_type == 'test':
     steer_mlt_set = [-0.25, 1.5]  # final test of the best setting from validation sample
-steer_mlt_set = [-1.0, 1.0]
+# steer_mlt_set = [-1.0, 1.0]
 
 # set paths
 paths = Paths()

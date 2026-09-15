@@ -3,7 +3,7 @@ import pickle
 
 import matplotlib
 
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
 
 import pandas as pd
 import seaborn as sns
@@ -46,8 +46,8 @@ bools.saveMe = False
 # bools.saveMe = True
 bools.goodSub = True
 
-# bools.saveFig = True
-bools.saveFig = False
+bools.saveFig = True
+# bools.saveFig = False
 fig_no = 'Fig3'
 
 instr_name_str = 'instr3'

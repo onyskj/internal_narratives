@@ -1,22 +1,30 @@
-baukit==0.0.1
-einops==0.8.2
+# Exact package versions of the environment used for all analyses (conda env "int_narr", Python 3.13.5,
+# macOS 15.7 on Apple Silicon). See README.md, section "Installation".
+#
+# Step 1:  pip install -r requirements.txt
+# Step 2:  pip install --no-deps sentence-transformers==5.1.1
+#          (sentence-transformers 5.1.1 declares transformers<5, but the analyses were run with
+#           transformers 5.12.1; --no-deps reproduces the tested environment exactly)
+baukit @ https://github.com/davidbau/baukit/archive/9d51abd51ebf29769aecc38c4cbef459b731a36e.zip
+accelerate==1.10.1
+einops==0.8.1
 firebase_admin==7.4.0
+google-cloud-storage==3.3.1
 joblib==1.5.1
 latextable==1.0.1
-matplotlib==3.11.0
+matplotlib==3.10.5
 natsort==8.4.0
-numpy==2.5.1
-pandas==3.0.3
-protobuf==7.35.1
+numpy==2.3.2
+pandas==2.3.1
+protobuf==6.33.6
 psutil==7.0.0
-scikit_learn==1.9.0
-scipy==1.18.0
+scikit-learn==1.7.1
+scipy==1.16.1
 seaborn==0.13.2
-sentence_transformers==5.1.1
 spgl1==0.0.3
 statannotations==0.7.2
 statsmodels==0.14.5
-textblob==0.20.0
+textblob==0.19.0
 texttable==1.7.0
 torch==2.6.0
 tqdm==4.67.1

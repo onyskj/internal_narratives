@@ -1,5 +1,5 @@
 # %% Load libs and set up objects
-import os
+import os,sys
 import json
 from tqdm import tqdm
 
@@ -11,10 +11,10 @@ torch.set_grad_enabled(False)
 import matplotlib
 import matplotlib.pyplot as plt
 
-if os.uname()[0] == 'Darwin':  # if on mac
+if sys.platform == 'darwin':
     device_name = 'mps'
     # matplotlib.use('Qt5Agg')
-    matplotlib.use('TkAgg')
+    matplotlib.use('Agg')
     plt.ion()
 
 else:
@@ -36,8 +36,8 @@ study_name = 'b_ssae'
 analysis_path = 'perturbation/'
 
 bools = Bools()
-# bools.saveFig = True
-bools.saveFig = False
+bools.saveFig = True
+# bools.saveFig = False
 bools.do_zscores = True
 bools.loadMe = True
 bools.saveMe = False
@@ -46,8 +46,6 @@ bools.saveMe = False
 bools.goodSub = True
 bools.computeDelta = False
 # bools.computeDelta = True
-# bools.saveFig = True
-bools.saveFig = False
 
 # do_zscores = True
 

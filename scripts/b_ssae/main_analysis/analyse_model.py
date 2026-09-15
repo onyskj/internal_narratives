@@ -2,7 +2,7 @@
 from matplotlib.lines import Line2D
 import pickle
 import json
-import os
+import os, sys
 import re
 from scipy import stats
 import pandas as pd
@@ -19,10 +19,10 @@ from torch.utils.data import DataLoader
 import matplotlib
 import matplotlib.pyplot as plt
 
-if os.uname()[0] == 'Darwin':  # if on mac
+if sys.platform == 'darwin':
     device_name = 'mps'
     # matplotlib.use('Qt5Agg')
-    matplotlib.use('TkAgg')
+    matplotlib.use('Agg')
     plt.ion()
 
 else:
@@ -46,8 +46,8 @@ analysis_path = 'main_analysis/'
 fig_no = 'Fig4'
 
 bools = Bools()
-# bools.saveFig = True
-bools.saveFig = False
+bools.saveFig = True
+# bools.saveFig = False
 bools.do_zscores = True
 bools.loadMe = True
 bools.saveMe = False
@@ -273,7 +273,6 @@ if bools.saveFig:
     plt.savefig(
         f"{paths.plots_path}{fig_no}_p2_ssae_pred_comp.pdf", dpi=300)
 
-
 # %% Covariance structure comparison prepare
 
 # set paths and load LLM results for comparison
@@ -313,8 +312,8 @@ metric_labels = ['Totals', 'Item corrs.', 'Singular vals.', 'O. PHQ8 basis', "O.
                  f'{gen_qs.upper()} basis', f'{gen_qs.upper()} proj.']
 tmp_dict = {'model': sample_config.model_name_plot, 'gen_qs': gen_qs.upper()} | cov_ms_avg_diff
 cov_ms_avg_diff = pd.DataFrame(cov_ms_avg_diff, index=[0])
-cov_ms_avg_diff['model']=f'sSAE'
-cov_ms_avg_diff['gen_qs']=gen_qs.upper()
+cov_ms_avg_diff['model'] = f'sSAE'
+cov_ms_avg_diff['gen_qs'] = gen_qs.upper()
 cov_ms_avg_diff = cov_ms_avg_diff[cov_metrics_llm.columns]
 
 cov_metrics_joint = pd.concat([cov_metrics_llm, cov_ms_avg_diff], axis=0)
@@ -324,10 +323,10 @@ cov_metrics_joint = cov_metrics_joint.melt(id_vars=['model', 'gen_qs'], var_name
 cross_corr, cross_corr_subset, cross_pvals, cross_pvals_subset = get_corrs_gen_wphq9_ssae(best_gen_preds, paths, gen_qs,
                                                                                           q_names,
                                                                                           openq_names,
-                                                                                          task_v, p_thr=p_thr)
+                                                                                          task_v)
 no_sui_idx = [c for c in cross_corr_subset.index if c != 'phq9_q9']
 df_corr, df_corr_wide, N_range = get_corrs_pvals_genq_logits(best_gen_preds, openq_names, phq9_q_names,
-                                                             p_thr=p_thr, score_col='score_ssae')
+                                                             score_col='score_ssae')
 
 vmin_val = min(df_corr_wide['r'].min().min(), cross_corr_subset.min().min())
 vmax_val = max(df_corr_wide['r'].max().max(), cross_corr_subset.max().max())
@@ -408,12 +407,11 @@ pc.ax.yaxis.labelpad = pc.ax_l_pad
 pc.ax.text(pc.p_lab_spec[0] + 0.05, pc.p_lab_spec[1], pc.p_labs[pc.i, pc.j], transform=pc.ax.transAxes,
            fontweight='bold', va='top', ha='right', fontsize=pc.p_lab_spec[2])
 
-
 # Plot similarity metrics
 pc.j = 2
 pc.p_lab_spec[0] = -0.2
 # sns.barplot(data=cov_ms_avg_diff[metric_subset], orient='h', facecolor='tab:gray', ax=pc.ax)
-g=sns.barplot(data=cov_metrics_joint,y='metric',x='value',hue='model', orient='h', ax=pc.ax)
+g = sns.barplot(data=cov_metrics_joint, y='metric', x='value', hue='model', orient='h', ax=pc.ax)
 g.legend(title='', loc='upper left', bbox_to_anchor=(-2.45, 1.25))
 pc.ax.set_ylabel('')
 pc.ax.set_xlabel('')
@@ -442,6 +440,7 @@ fig, axes = plt.subplots(pc.r, pc.c, figsize=pc.figsize)
 pc.onerow = False
 pc.axes = np.array([[axes]])
 pc.i, pc.j = 0, 0
+pc.plab_offset = 0
 
 pc.ax_ts(7, 1)
 # pc.l_fs(12, 0.85)
@@ -560,4 +559,3 @@ plt.tight_layout()
 if bools.saveFig:
     plt.savefig(
         f"{paths.plots_path}ssae_loss_{sample_config.model_name}.pdf", dpi=300)
-

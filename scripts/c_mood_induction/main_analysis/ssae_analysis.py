@@ -15,7 +15,7 @@ from _utils.utils import write_to_tex
 report_vars = ReportVars()
 
 # matplotlib.use('Qt5Agg')
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 plt.ion()
@@ -44,8 +44,8 @@ bools = Bools()
 # bools.loadMe = True
 bools.saveMe = False
 # bools.saveMe = True
-# bools.savePlot = True
-bools.savePlot = False
+bools.savePlot = True
+# bools.savePlot = False
 bools.saveTex = False
 # bools.saveTex = True
 

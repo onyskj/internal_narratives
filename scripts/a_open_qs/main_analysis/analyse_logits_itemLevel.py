@@ -5,7 +5,7 @@ import matplotlib
 import statsmodels.formula.api as smf
 from scipy import stats
 
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 plt.ion()
@@ -45,8 +45,8 @@ bools.loadMe = True
 bools.saveMe = False
 # bools.loadMe = False
 # bools.saveMe = True
-# bools.saveFig = True
-bools.saveFig = False
+bools.saveFig = True
+# bools.saveFig = False
 bools.goodSub = True
 bools.saveTex = False
 # bools.saveTex = True

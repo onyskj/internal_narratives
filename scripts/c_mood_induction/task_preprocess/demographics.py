@@ -1,6 +1,6 @@
 import matplotlib
 
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 import matplotlib.patches as mpatches  # Required for the custom legend
@@ -19,8 +19,8 @@ pc = PlotConfig()
 bools = Bools()
 bools.savePlots = True
 # bools.savePlots = False
-# bools.loadMe = True
-bools.loadMe = False
+bools.loadMe = True
+# bools.loadMe = False
 task_v = ['v2', 'v2b', 'v3']
 
 paths = Paths()

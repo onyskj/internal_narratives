@@ -121,18 +121,18 @@ hrule = '__HRULE__'
 rows = [["", "", "MH", "ML", "MH", "ML"],
         ["Sample size (n)", f"{N_s1}"] + [N_s2.loc[i] for i in N_s2.index],
         [f"Age (mean {pm} SD)", f"{s1_dem_dict['age']}"] + [s2_dem_dict[i]['age'] for i in N_s2.index],
-        ["Sex (\% Female)", f"{s1_dem_dict['sex']}"] + [s2_dem_dict[i]['sex'] for i in N_s2.index],
+        [r"Sex (\% Female)", f"{s1_dem_dict['sex']}"] + [s2_dem_dict[i]['sex'] for i in N_s2.index],
         [hrule] * 6,
-        ["Ethnicity \%"] + 5 * ['']]
+        [r"Ethnicity \%"] + 5 * ['']]
 for e, ec in enumerate(ethnicity_code):
-    tmp_row = ['\quad ' + ec, f"{s1_dem_dict['ethnicity'][ec]:.1f}"] + [f"{s2_dem_dict[i]['ethnicity'][ec]:.1f}" for i
+    tmp_row = [r'\quad ' + ec, f"{s1_dem_dict['ethnicity'][ec]:.1f}"] + [f"{s2_dem_dict[i]['ethnicity'][ec]:.1f}" for i
                                                                         in N_s2.index]
     tmp_row = [i if i != 'nan' else ph for i in tmp_row]
     rows.append(tmp_row)
 rows.append([hrule] * 6)
-rows.append(["Employment \%"] + 5 * [''])
+rows.append([r"Employment \%"] + 5 * [''])
 for e, ec in enumerate(employment_code):
-    tmp_row = ['\quad ' + ec, f"{s1_dem_dict['employment'][ec]:.1f}"] + [f"{s2_dem_dict[i]['employment'][ec]:.1f}" for i
+    tmp_row = [r'\quad ' + ec, f"{s1_dem_dict['employment'][ec]:.1f}"] + [f"{s2_dem_dict[i]['employment'][ec]:.1f}" for i
                                                                          in N_s2.index]
     tmp_row = [i if i != 'nan' else ph for i in tmp_row]
     rows.append(tmp_row)
@@ -155,7 +155,7 @@ print(latextable.draw_latex(table_13, multicolumn_header=multicolumn_header, use
 latex_tab_str = latextable.draw_latex(table_13, multicolumn_header=multicolumn_header, use_booktabs=True)
 latex_tab_str = latex_tab_str.split('\n')[8:-4]
 latex_tab_str = '\n'.join(['\t\t\t\\hline' if hrule in row else row for row in latex_tab_str])
-latex_tab_str = "\\newcommand{\TableDemographics}{\n" + latex_tab_str + '\n}'
+latex_tab_str = "\\newcommand{\\TableDemographics}{\n" + latex_tab_str + '\n}'
 if bools.saveTex:
     with open('outputs/vars/demog_table.tex', 'w') as f:
         f.write(latex_tab_str)
@@ -165,14 +165,14 @@ rows = [["", "MH", "ML", "MH", "ML"],
         ["N"] + [N_s2.loc[i] for i in N_s2.index],
         [f"Age"] + [s2_dem_dict[i]['age'] for i in N_s2.index],
         ["Sex"] + [s2_dem_dict[i]['sex'] for i in N_s2.index],
-        ["Ethnicity\%"] + 4 * ['']]
+        [r"Ethnicity\%"] + 4 * ['']]
 for e, ec in enumerate(ethnicity_code):
-    tmp_row = ['\quad ' + ec] + [f"{s2_dem_dict[i]['ethnicity'][ec]:.1f}" for i in N_s2.index]
+    tmp_row = [r'\quad ' + ec] + [f"{s2_dem_dict[i]['ethnicity'][ec]:.1f}" for i in N_s2.index]
     tmp_row = [i if i != 'nan' else ph for i in tmp_row]
     rows.append(tmp_row)
-rows.append(["Employment\%"] + 4 * [''])
+rows.append([r"Employment\%"] + 4 * [''])
 for e, ec in enumerate(employment_code):
-    tmp_row = ['\quad ' + ec] + [f"{s2_dem_dict[i]['employment'][ec]:.1f}" for i in N_s2.index]
+    tmp_row = [r'\quad ' + ec] + [f"{s2_dem_dict[i]['employment'][ec]:.1f}" for i in N_s2.index]
     tmp_row = [i if i != 'nan' else ph for i in tmp_row]
     rows.append(tmp_row)
 rows.append(["PHQ-9 total"] + [s2_dem_dict[i]['phq9'] for i in N_s2.index])

@@ -137,7 +137,7 @@ def bootstrap_ssae_covs(best_gen_preds, gen_qs, paths, sample_config, task_v, n_
 
 
 # get item-level correlations on ground-truth dataset between phq9 and phq8 for sae preds
-def get_corrs_gen_wphq9_ssae(best_gen_preds, paths, gen_qs, context_names, q_names, task_v, p_thr=1):
+def get_corrs_gen_wphq9_ssae(best_gen_preds, paths, gen_qs, context_names, q_names, task_v):
     """
     Computes Spearman rank correlations and corresponding p-values between PHQ-9 scores and ssae estimated question scores
     for specific tasks and conditions.
@@ -155,7 +155,6 @@ def get_corrs_gen_wphq9_ssae(best_gen_preds, paths, gen_qs, context_names, q_nam
         or interpretation in the analysis.
     :param q_names: List of question names (e.g., PHQ-9 question identifiers) included in the correlation analysis.
     :param task_v: List of task version identifiers for filtering PHQ-9 data.
-    :param p_thr: Float specifying the p-value threshold for significance adjustment (default is 1).
 
     :return: Tuple containing the following elements:
         - Full Spearman rank correlation matrix as a DataFrame.

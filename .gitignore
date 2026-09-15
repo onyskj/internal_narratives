@@ -10,6 +10,8 @@
 data/*
 # Exclude output dir
 outputs/*
+redact_text_data.py
+data_redacted/*
 
 # # Exclude indiviudal LLM samples for each subject
 # **/subjects/*

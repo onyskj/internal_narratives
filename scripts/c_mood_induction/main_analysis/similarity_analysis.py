@@ -1,6 +1,6 @@
 # %% Import libraries
 import pickle
-import os
+import os,sys
 import pandas as pd
 import statsmodels.formula.api as smf
 from sentence_transformers import SentenceTransformer
@@ -11,7 +11,7 @@ from _utils.utils import return_p_star
 import matplotlib
 import matplotlib.pyplot as plt
 
-matplotlib.use('TkAgg')
+matplotlib.use('Agg')
 # matplotlib.use('Agg')
 plt.ion()
 import seaborn as sns
@@ -22,7 +22,7 @@ from _objects.qs_maps import phq9_qs
 
 from _utils.utils import write_to_tex
 
-if os.uname()[0] == 'Darwin':  # if on mac
+if sys.platform == 'darwin':
     device_name = 'mps'
 else:
     device_name = 'cuda'
@@ -47,13 +47,14 @@ Path(paths.output_path).mkdir(parents=True, exist_ok=True)
 
 # set bools
 bools.saveMe = False
-bools.savePlot = False
-# bools.savePlot = True
+# bools.savePlot = False
+bools.savePlot = True
 # bools.loadEmb = False
 # bools.saveEmb = True
 bools.loadEmb = True
 bools.saveEmb = False
 bools.saveTex = False
+bools.loadTextMeasures = True  # load saved similarity measures (text_measures.csv); no text or embeddings needed
 
 # %% Load data
 id_cols = ['sub', 'condition', 'group', 'autobio']
@@ -68,15 +69,18 @@ phq9_qs_lab = [f'phq9_q{q + 1}' for q in range(9)]
 phq9_diff = pd.read_csv(f'{paths.data_path}phq9_diff_data_wide.csv')
 mood_diff = pd.read_csv(f'{paths.data_path}mood_data.csv')
 recall_data = pd.read_csv(f"{paths.data_path}recall_data_wide.csv")
-int_data = pd.read_csv(f'{paths.data_path}int_data.csv')
-openq_data = pd.read_csv(f'{paths.data_path}openq_data.csv')
+if not bools.loadTextMeasures:
+    int_data = pd.read_csv(f'{paths.data_path}int_data.csv')
+    openq_data = pd.read_csv(f'{paths.data_path}openq_data.csv')
 
-# % Combine text data
-text_data = pd.merge(int_data, openq_data, on=join_cols)
-if bools.saveMe:
-    text_data.to_csv(f"{paths.data_path}text_data.csv", index=False)
+    # % Combine text data
+    text_data = pd.merge(int_data, openq_data, on=join_cols)
+    if bools.saveMe:
+        text_data.to_csv(f"{paths.data_path}text_data.csv", index=False)
 # %% Get embeddings of transcripts and PHQ9 statements
-if bools.loadEmb:
+if bools.loadTextMeasures:
+    pass  # similarity measures are loaded below
+elif bools.loadEmb:
     with open(f'{paths.output_path}transcripts_embd.pkl', 'rb') as f:
         transcripts_embd = pickle.load(f)
     with open(f'{paths.output_path}phq9_embds.pkl', 'rb') as f:
@@ -101,13 +105,15 @@ else:
             pickle.dump(phq9_embds, f)
 
 # %% Calculate/Load Text embeddings for recreate, intervention, open-ended mood, energy, positive re-eval
-text_keys = [c for c in text_data.columns if (('recreate_' in c) or ('oq_' in c) or ('act' in c)) and ('_wc' not in c)]
-if bools.loadEmb:
+if bools.loadTextMeasures:
+    pass  # similarity measures are loaded below
+elif bools.loadEmb:
     with open(f'{paths.output_path}text_embd_autobio.pkl', 'rb') as f:
         embd_autobio = pickle.load(f)
     with open(f'{paths.output_path}text_embd_nonautobio.pkl', 'rb') as f:
         embd_nonautobio = pickle.load(f)
 else:
+    text_keys = [c for c in text_data.columns if (('recreate_' in c) or ('oq_' in c) or ('act' in c)) and ('_wc' not in c)]
     embd_autobio = {'MH': {}, 'ML': {}}
     embd_nonautobio = {'MH': {}, 'ML': {}}
     for r, row in text_data.iterrows():
@@ -127,98 +133,102 @@ else:
             pickle.dump(embd_nonautobio, f)
 
 # %% Calcualte text features and similarities
-rec_transcript_autobio_dict = {'MH': [], 'ML': []}
-rec_transcript_nonautobio_dict = {'MH': [], 'ML': []}
-rec_transcript_sim_long = pd.DataFrame()
+if not bools.loadTextMeasures:
+    rec_transcript_autobio_dict = {'MH': [], 'ML': []}
+    rec_transcript_nonautobio_dict = {'MH': [], 'ML': []}
+    rec_transcript_sim_long = pd.DataFrame()
 
-text_measures = []
-for r, row in text_data.iterrows():
-    sub = row['sub']
-    condition = row['condition']
-    is_autobio = row['autobio']
-    group = row['group']
-    s_bin = row['s_bin']
-    s_bin3 = row['s_bin3']
+    text_measures = []
+    for r, row in text_data.iterrows():
+        sub = row['sub']
+        condition = row['condition']
+        is_autobio = row['autobio']
+        group = row['group']
+        s_bin = row['s_bin']
+        s_bin3 = row['s_bin3']
 
-    if is_autobio:
-        text_embd = embd_autobio[condition][sub]
-    else:
-        text_embd = embd_nonautobio[condition][sub]
+        if is_autobio:
+            text_embd = embd_autobio[condition][sub]
+        else:
+            text_embd = embd_nonautobio[condition][sub]
 
-    rec_embs = np.array([v for k, v in text_embd.items() if 'recreate' in k])
-    rec_embs_avg = rec_embs.mean(axis=0, keepdims=True)
-    oq_rembs = np.array([v for k, v in text_embd.items() if ('oq_' in k) and ('pospert' not in k)])
-    oq_rembs_avg = oq_rembs.mean(axis=0, keepdims=True)
+        rec_embs = np.array([v for k, v in text_embd.items() if 'recreate' in k])
+        rec_embs_avg = rec_embs.mean(axis=0, keepdims=True)
+        oq_rembs = np.array([v for k, v in text_embd.items() if ('oq_' in k) and ('pospert' not in k)])
+        oq_rembs_avg = oq_rembs.mean(axis=0, keepdims=True)
 
-    # Similarity between original transcript and recreated diary
-    rec_transcript_sim = cossim(rec_embs, transcripts_embd[condition])
-    off_diag_sim = np.tril(rec_transcript_sim, -1)
-    diag_sim = np.diag(rec_transcript_sim)
+        # Similarity between original transcript and recreated diary
+        rec_transcript_sim = cossim(rec_embs, transcripts_embd[condition])
+        off_diag_sim = np.tril(rec_transcript_sim, -1)
+        diag_sim = np.diag(rec_transcript_sim)
 
-    # convert to long
-    rec_transcript_sim_long_tmp = pd.DataFrame(rec_transcript_sim, index=[f'rec_diary{d + 1}' for d in range(4)],
-                                               columns=[f'org_diary{d + 1}' for d in range(4)]).reset_index(
-        names=['rec_diary'])
-    rec_transcript_sim_long_tmp = rec_transcript_sim_long_tmp.melt(id_vars=['rec_diary'], var_name='org_diary',
-                                                                   value_name='cos_sim')
-    rec_transcript_sim_long_tmp['rec_diary'] = rec_transcript_sim_long_tmp['rec_diary'].str.replace('rec_', '')
-    rec_transcript_sim_long_tmp['org_diary'] = rec_transcript_sim_long_tmp['org_diary'].str.replace('org_', '')
-    rec_transcript_sim_long_tmp.insert(0, 'sub', sub)
-    rec_transcript_sim_long_tmp.insert(1, 'condition', condition)
-    rec_transcript_sim_long_tmp.insert(2, 'group', group)
-    rec_transcript_sim_long_tmp.insert(3, 'autobio', is_autobio)
-    rec_transcript_sim_long = pd.concat([rec_transcript_sim_long, rec_transcript_sim_long_tmp], axis=0)
+        # convert to long
+        rec_transcript_sim_long_tmp = pd.DataFrame(rec_transcript_sim, index=[f'rec_diary{d + 1}' for d in range(4)],
+                                                   columns=[f'org_diary{d + 1}' for d in range(4)]).reset_index(
+            names=['rec_diary'])
+        rec_transcript_sim_long_tmp = rec_transcript_sim_long_tmp.melt(id_vars=['rec_diary'], var_name='org_diary',
+                                                                       value_name='cos_sim')
+        rec_transcript_sim_long_tmp['rec_diary'] = rec_transcript_sim_long_tmp['rec_diary'].str.replace('rec_', '')
+        rec_transcript_sim_long_tmp['org_diary'] = rec_transcript_sim_long_tmp['org_diary'].str.replace('org_', '')
+        rec_transcript_sim_long_tmp.insert(0, 'sub', sub)
+        rec_transcript_sim_long_tmp.insert(1, 'condition', condition)
+        rec_transcript_sim_long_tmp.insert(2, 'group', group)
+        rec_transcript_sim_long_tmp.insert(3, 'autobio', is_autobio)
+        rec_transcript_sim_long = pd.concat([rec_transcript_sim_long, rec_transcript_sim_long_tmp], axis=0)
 
-    if is_autobio:
-        rec_transcript_autobio_dict[condition].append(rec_transcript_sim)
-    else:
-        rec_transcript_nonautobio_dict[condition].append(rec_transcript_sim)
+        if is_autobio:
+            rec_transcript_autobio_dict[condition].append(rec_transcript_sim)
+        else:
+            rec_transcript_nonautobio_dict[condition].append(rec_transcript_sim)
 
-    # Similarity between recreated and continuation
-    rec_act_sim = cossim(text_embd['act_0'][:, None].T, rec_embs_avg)[0, 0]
-    # Similarity between average open-ended response (mood+energy)/2 vs positive re-eval
-    oq_pospert_sim = cossim(text_embd['oq_pospert'][:, None].T, oq_rembs_avg)[0, 0]
-    # Open mood vs continuation
-    mood_act_sim = cossim(text_embd['act_0'][:, None].T, text_embd['oq_mood'][:, None].T)[0, 0]
-    # Continuation vs positive re-eval
-    act_pospert_sim = cossim(text_embd['act_0'][:, None].T, text_embd['oq_pospert'][:, None].T)[0, 0]
+        # Similarity between recreated and continuation
+        rec_act_sim = cossim(text_embd['act_0'][:, None].T, rec_embs_avg)[0, 0]
+        # Similarity between average open-ended response (mood+energy)/2 vs positive re-eval
+        oq_pospert_sim = cossim(text_embd['oq_pospert'][:, None].T, oq_rembs_avg)[0, 0]
+        # Open mood vs continuation
+        mood_act_sim = cossim(text_embd['act_0'][:, None].T, text_embd['oq_mood'][:, None].T)[0, 0]
+        # Continuation vs positive re-eval
+        act_pospert_sim = cossim(text_embd['act_0'][:, None].T, text_embd['oq_pospert'][:, None].T)[0, 0]
 
-    # Q2 phq9 statemetn vs open mood
-    q2_mood_sim = cossim(phq9_embds[1][:, None].T, text_embd['oq_mood'][:, None].T)[0, 0]
-    # Q2 phq9 statemetn vs act
-    q2_act_sim = cossim(phq9_embds[1][:, None].T, text_embd['act_0'][:, None].T)[0, 0]
-    # Q2 phq9 statemetn vs pospoert
-    q2_pospert_sim = cossim(phq9_embds[1][:, None].T, text_embd['oq_pospert'][:, None].T)[0, 0]
+        # Q2 phq9 statemetn vs open mood
+        q2_mood_sim = cossim(phq9_embds[1][:, None].T, text_embd['oq_mood'][:, None].T)[0, 0]
+        # Q2 phq9 statemetn vs act
+        q2_act_sim = cossim(phq9_embds[1][:, None].T, text_embd['act_0'][:, None].T)[0, 0]
+        # Q2 phq9 statemetn vs pospoert
+        q2_pospert_sim = cossim(phq9_embds[1][:, None].T, text_embd['oq_pospert'][:, None].T)[0, 0]
 
-    # collect similarities
-    tmp_dict = {'sub': sub, 'condition': condition, 'group': group, 'autobio': is_autobio, 's_bin': s_bin,
-                's_bin3': s_bin3, 'avgRecAct_sim': rec_act_sim,
-                'avgBaselinePospert_sim': oq_pospert_sim, 'moodBaselineAct_sim': mood_act_sim,
-                'actPospert_sim': act_pospert_sim, 'q2Mood_sim': q2_mood_sim, 'q2Act_sim': q2_act_sim,
-                'q2Pospert_sim': q2_pospert_sim}
-    text_measures.append(tmp_dict)
+        # collect similarities
+        tmp_dict = {'sub': sub, 'condition': condition, 'group': group, 'autobio': is_autobio, 's_bin': s_bin,
+                    's_bin3': s_bin3, 'avgRecAct_sim': rec_act_sim,
+                    'avgBaselinePospert_sim': oq_pospert_sim, 'moodBaselineAct_sim': mood_act_sim,
+                    'actPospert_sim': act_pospert_sim, 'q2Mood_sim': q2_mood_sim, 'q2Act_sim': q2_act_sim,
+                    'q2Pospert_sim': q2_pospert_sim}
+        text_measures.append(tmp_dict)
 
-# same diary or different?
-rec_transcript_sim_long['is_same'] = rec_transcript_sim_long['rec_diary'] == rec_transcript_sim_long['org_diary']
+    # same diary or different?
+    rec_transcript_sim_long['is_same'] = rec_transcript_sim_long['rec_diary'] == rec_transcript_sim_long['org_diary']
 
-# Calculate average similarity between transcripts and recreated texts
-rec_transcript_dict = {'MH': rec_transcript_autobio_dict['MH'] + rec_transcript_nonautobio_dict['MH'],
-                       'ML': rec_transcript_autobio_dict['ML'] + rec_transcript_nonautobio_dict['ML']}
+    # Calculate average similarity between transcripts and recreated texts
+    rec_transcript_dict = {'MH': rec_transcript_autobio_dict['MH'] + rec_transcript_nonautobio_dict['MH'],
+                           'ML': rec_transcript_autobio_dict['ML'] + rec_transcript_nonautobio_dict['ML']}
 
-rec_transcript_dict['MH'] = np.array(rec_transcript_dict['MH']).mean(axis=0)
-rec_transcript_dict['ML'] = np.array(rec_transcript_dict['ML']).mean(axis=0)
+    rec_transcript_dict['MH'] = np.array(rec_transcript_dict['MH']).mean(axis=0)
+    rec_transcript_dict['ML'] = np.array(rec_transcript_dict['ML']).mean(axis=0)
 
-rec_transcript_nonautobio_dict['MH'] = np.array(rec_transcript_nonautobio_dict['MH']).mean(axis=0)
-rec_transcript_nonautobio_dict['ML'] = np.array(rec_transcript_nonautobio_dict['ML']).mean(axis=0)
-rec_transcript_autobio_dict['MH'] = np.array(rec_transcript_autobio_dict['MH']).mean(axis=0)
-rec_transcript_autobio_dict['ML'] = np.array(rec_transcript_autobio_dict['ML']).mean(axis=0)
+    rec_transcript_nonautobio_dict['MH'] = np.array(rec_transcript_nonautobio_dict['MH']).mean(axis=0)
+    rec_transcript_nonautobio_dict['ML'] = np.array(rec_transcript_nonautobio_dict['ML']).mean(axis=0)
+    rec_transcript_autobio_dict['MH'] = np.array(rec_transcript_autobio_dict['MH']).mean(axis=0)
+    rec_transcript_autobio_dict['ML'] = np.array(rec_transcript_autobio_dict['ML']).mean(axis=0)
 
-text_measures = pd.DataFrame(text_measures)
-if bools.saveMe:
-    with open(f'{paths.output_path}rec_transcript_dict.pkl', 'wb') as f:
-        pickle.dump(rec_transcript_dict, f)
-    text_measures.to_csv(f'{paths.output_path}text_measures.csv', index=False)
-    rec_transcript_sim_long.to_csv(f'{paths.output_path}rec_transcript_sim_long.csv', index=False)
+    text_measures = pd.DataFrame(text_measures)
+    if bools.saveMe:
+        with open(f'{paths.output_path}rec_transcript_dict.pkl', 'wb') as f:
+            pickle.dump(rec_transcript_dict, f)
+        text_measures.to_csv(f'{paths.output_path}text_measures.csv', index=False)
+        rec_transcript_sim_long.to_csv(f'{paths.output_path}rec_transcript_sim_long.csv', index=False)
+else:
+    # load the saved per-participant similarity measures
+    text_measures = pd.read_csv(f'{paths.output_path}text_measures.csv')
 
 # %% Merge text measures and save
 phq9_diff_text = pd.merge(text_measures, phq9_diff, on=join_cols)

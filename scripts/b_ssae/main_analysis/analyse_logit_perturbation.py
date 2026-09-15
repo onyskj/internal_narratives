@@ -1,5 +1,5 @@
 # %% Import libs
-import os, re
+import os, re, sys
 from scipy import stats
 import pandas as pd
 from natsort import natsorted
@@ -11,9 +11,9 @@ import matplotlib
 
 torch.set_grad_enabled(False)
 
-if os.uname()[0] == 'Darwin':  # if on mac
+if sys.platform == 'darwin':
     # matplotlib.use('Qt5Agg')
-    matplotlib.use('TkAgg')
+    matplotlib.use('Agg')
     device_name = 'mps'
     import matplotlib.pyplot as plt
 
