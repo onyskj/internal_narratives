@@ -4,7 +4,7 @@ Code for **"Metareasoning constraints couple narratives, affect and cognition"**
 (preprint: https://arxiv.org/abs/2502.09487).
 
 - Code: https://github.com/onyskj/internal_narratives
-- Data and intermediate outputs: https://osf.io/bs2df
+- Data and intermediate outputs: https://figshare.com/s/ca24461aeea2c8243531
 - License: MIT (see `LICENSE`)
 
 This repository contains all analysis code for the manuscript, and the code of the online experiments. With
@@ -36,7 +36,7 @@ in section 8, with instructions to run them in section 9.
 # 1. Get the code and the data (see section 3), so that data/ and outputs/ are in the repository root
 git clone https://github.com/onyskj/internal_narratives.git
 cd internal_narratives
-# ... download the OSF archive (https://osf.io/bs2df) and merge its data/ and outputs/ folders here
+# ... download the figshare archive (https://figshare.com/s/ca24461aeea2c8243531) and merge its data/ and outputs/ folders here
 
 # 2. Create the environment (1–10 min depending on the connection, see section 5)
 conda create -n int_narr python=3.13.5 -y
@@ -77,8 +77,8 @@ The figure panels are written to `outputs/<study>/plots/`, with the file names l
 .
 ├── _objects/            configuration classes and model definitions
 ├── _utils/utils.py      helper functions (statistics, LaTeX variable export)
-├── data/                preprocessed data (from OSF)
-├── outputs/             intermediate results, plots and LaTeX variables (from OSF)
+├── data/                preprocessed data (from figshare)
+├── outputs/             intermediate results, plots and LaTeX variables (from figshare)
 ├── scripts/             analysis code
 ├── tasks/               JavaScript (jsPsych) code of the online experiments
 ├── requirements.txt     exact package versions used for the analyses
@@ -195,7 +195,7 @@ JavaScript (jsPsych) code of the online experiments.
 
 ## 3. Data
 
-The GitHub repository contains the code. The OSF archive (https://osf.io/bs2df) contains `data/` and
+The GitHub repository contains the code. The figshare archive (https://figshare.com/s/ca24461aeea2c8243531) contains `data/` and
 `outputs/` (3.7 GB). Merge both, so that `data/` and `outputs/` are in the repository root.
 
 ### What is shared
@@ -533,7 +533,7 @@ example prompt is in the Supplementary Information (B.3).
 | Problem                                                                | Solution                                                                                                  |
 |------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
 | `ModuleNotFoundError: No module named '_objects'` or `'scripts'`       | Run from the repository root with `PYTHONPATH=.`                                                          |
-| `FileNotFoundError` for `data/...` or `outputs/...`                    | Run from the repository root, and check that the OSF archive is merged (section 3)                        |
+| `FileNotFoundError` for `data/...` or `outputs/...`                    | Run from the repository root, and check that the figshare archive is merged (section 3)                        |
 | `Cannot load backend 'TkAgg'` or `ValueError: height and width must be > 0` (macOS without a display session) | Only in the macOS branch of `perturbation_selection.py`, `model_selection.py` and `logit_perturbation.py`. Change `matplotlib.use('TkAgg')` to `matplotlib.use('Agg')` in that script |
 | `AttributeError: module 'os' has no attribute 'uname'` (native Windows, section 9 scripts) | Use WSL2, Linux or macOS. Or, in the script, replace `os.uname()[0] == 'Darwin'` with `sys.platform == 'darwin'` (and add `import sys`); this gives the same result on macOS and Linux and also works on Windows. Affected: `llm_sampling/logit_utils.py`, `sample_logits_itemLevel.py`, `sample_logits_genLevel.py` (3 lines), `model_training.py`, `model_selection.py`, `logit_perturbation.py`, `sample_hidden_states.py` |
 | `ModuleNotFoundError: No module named 'google'`                        | `pip install google-cloud-storage==3.3.1` (imported by `_utils/utils.py`)                                  |
